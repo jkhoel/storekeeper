@@ -11,3 +11,6 @@ app.get('/', (req, res) => {
 app.listen(3000, () => {
   console.log('Example app listening on port 3000!');
 });
+
+// Export our app for testing purposes
+export default app;
