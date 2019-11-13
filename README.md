@@ -1,2 +1,2 @@
-# storekeeper
+# Storekeeper
 A NodeJS backend specialized for use with lua-webdispatcher and DCS
