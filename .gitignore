@@ -3,7 +3,7 @@ config/keys_dev.js
 config/keys_test.js
 
 # Others
-# package-lock.json
+package-lock.json
 
 # Logs
 logs
