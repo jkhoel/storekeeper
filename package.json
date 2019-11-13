@@ -8,7 +8,8 @@
     "start": "node build/server.js",
     "build": "npm run tsc",
     "dev": "ts-node-dev --respawn --transpileOnly ./src/server.ts",
-    "prod": "tsc && node ./build/server.js"
+    "prod": "tsc && node ./build/server.js",
+    "eslint": "eslint src --ext ts"
   },
   "keywords": [
     "dcs",
