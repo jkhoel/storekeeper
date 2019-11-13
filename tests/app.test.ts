@@ -1,11 +1,11 @@
-import chai from 'chai'
-import chaiHttp from 'chai-http'
+import chai from 'chai';
+import chaiHttp from 'chai-http';
 
-import app from '../src/app'
+import app from '../src/app';
 
 // Configure Chai
-chai.use(chaiHttp)
-chai.should()
+chai.use(chaiHttp);
+chai.should();
 
 describe('Storekeeper:', () => {
   it('Should respond to a basic GET /api/v1/ request to root endpoint', (done) => {
@@ -13,6 +13,6 @@ describe('Storekeeper:', () => {
       res.should.have.status(200);
       res.body.should.be.a('object');
       done();
-    })
-  })
-})
+    });
+  });
+});

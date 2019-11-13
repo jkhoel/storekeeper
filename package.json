@@ -5,10 +5,11 @@
   "private": true,
   "scripts": {
     "tsc": "tsc",
-    "start": "node build/app.js",
-    "build": "npm run tsc",
+    "start": "node ./dist/bundle.js",
+    "build": "npx webpack --mode production",
+    "build:dev": "npx webpack --mode development",
     "dev": "ts-node-dev --respawn --transpileOnly ./src/app.ts",
-    "prod": "tsc && node ./build/app.js",
+    "prod": "npm run build && npm start",
     "eslint": "eslint src --ext ts",
     "test": "mocha -r ts-node/register tests/**/*.test.ts",
     "coverage": "nyc -r lcov -e .ts -x \"*.test.ts\" npm run test"
@@ -38,8 +39,11 @@
     "mocha": "^6.2.2",
     "nyc": "^14.1.1",
     "sinon": "^7.5.0",
+    "ts-loader": "^6.2.1",
     "ts-node": "^8.5.0",
     "ts-node-dev": "^1.0.0-pre.44",
-    "typescript": "^3.7.2"
+    "typescript": "^3.7.2",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10"
   }
 }

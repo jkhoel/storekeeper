@@ -5,6 +5,9 @@ config/keys_test.js
 # Others
 package-lock.json
 
+# Dist folder
+dist/
+
 # Logs
 logs
 *.log
