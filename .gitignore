@@ -1,3 +1,10 @@
+# Configs
+config/keys_dev.js
+config/keys_test.js
+
+# Others
+package-lock.json
+
 # Logs
 logs
 *.log
