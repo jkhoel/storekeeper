@@ -5,10 +5,10 @@
   "private": true,
   "scripts": {
     "tsc": "tsc",
-    "start": "node build/server.js",
+    "start": "node build/app.js",
     "build": "npm run tsc",
-    "dev": "ts-node-dev --respawn --transpileOnly ./src/server.ts",
-    "prod": "tsc && node ./build/server.js",
+    "dev": "ts-node-dev --respawn --transpileOnly ./src/app.ts",
+    "prod": "tsc && node ./build/app.js",
     "eslint": "eslint src --ext ts",
     "test": "mocha -r ts-node/register tests/**/*.test.ts",
     "coverage": "nyc -r lcov -e .ts -x \"*.test.ts\" npm run test"
@@ -20,7 +20,7 @@
     "lua",
     "backend"
   ],
-  "author": "132nd.Dex",
+  "author": "jkhoel",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1"
