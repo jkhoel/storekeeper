@@ -11,9 +11,13 @@ Storekeeper is allows dataexchange between a DCS mission and a persistant backen
 ## Root Endpoint [/api/v1/]
 
 ### Hello World [GET]
+Simple endpoint to check that the API is up and available
+
 + Response 200 (application/json)
-[
-  {
-    msg: 'Helllo World!'
-  }
-]
+    { "msg": "Storekeeper API is running!" }
+
+### Echo Request [POST]
+Mirrors the request posted back
+
++ Response 200 (application/json)
+    { "header": { "content-type": "application/x-www-form-urlencoded", "user-agent": ... }}
