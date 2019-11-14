@@ -4,4 +4,9 @@
     "activityBar.activeBorder": "#ff69b4"
   },
   "editor.minimap.scale": 1,
+  "mocha.files.glob": "tests/**/*.ts",
+  "mocha.requires": [
+    "ts-node/register"
+  ],
+  "mocha.runTestsOnSave": "true",
 }
