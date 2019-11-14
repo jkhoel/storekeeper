@@ -13,7 +13,7 @@ airports.get('/', (req, res) => {
   if (req.query.desc !== 'false') desc = `ORDER BY af_icao DESC`;
 
   const query = `SELECT * from list_airfields ${desc} ${limit}`;
-  sql(query).then((data) => {
+  sql(query).then((data: { error: any; rows: any; }) => {
     if (data.error) res.json(data);
     res.json(data.rows);
   });
