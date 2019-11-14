@@ -13,7 +13,7 @@
     "eslint": "eslint src --ext ts",
     "test": "mocha -r ts-node/register tests/**/*.test.ts",
     "coverage": "nyc -r lcov -e .ts -x \"*.test.ts\" npm run test",
-    "docs": "aglio --theme-variables slate --theme-template triple -i docs/api.apib -o www/index.html",
+    "docs": "aglio --theme-variables slate --theme-template triple -i docs/api.apib -o docs/index.html",
     "docs:host": "aglio --theme-variables slate --theme-template triple -i docs/api.apib -s"
   },
   "keywords": [
