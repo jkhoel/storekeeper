@@ -13,7 +13,8 @@
     "eslint": "eslint src --ext ts",
     "test": "mocha -r ts-node/register tests/**/*.test.ts",
     "coverage": "nyc -r lcov -e .ts -x \"*.test.ts\" npm run test",
-    "docs": "snowboard html -o www ./docs/api.apib"
+    "docs": "aglio --theme-variables slate --theme-template triple -i docs/api.apib -o www/index.html",
+    "docs:host": "aglio --theme-variables slate --theme-template triple -i docs/api.apib -s"
   },
   "keywords": [
     "dcs",
@@ -35,6 +36,7 @@
     "@types/mocha": "^5.2.7",
     "@types/mysql": "^2.15.8",
     "@typescript-eslint/parser": "^2.7.0",
+    "aglio": "^2.3.0",
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
     "eslint": "^6.6.0",
@@ -43,7 +45,6 @@
     "mocha": "^6.2.2",
     "nyc": "^14.1.1",
     "sinon": "^7.5.0",
-    "snowboard": "^3.5.4-rc1",
     "ts-loader": "^6.2.1",
     "ts-node": "^8.5.0",
     "ts-node-dev": "^1.0.0-pre.44",
