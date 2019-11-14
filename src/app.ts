@@ -1,5 +1,6 @@
 // lib/app.ts
 import express from 'express';
+import bodyParser from 'body-parser';
 
 require('dotenv').config()
 
@@ -12,6 +13,10 @@ import airports from './routes/airports'
 
 // Create a new express application instance
 const app: express.Application = express();
+
+// Middleware config
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json());
 
 // Map endpoints to paths
 app.use(ROOT_URL, endpoint);
