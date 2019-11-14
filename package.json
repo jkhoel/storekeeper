@@ -12,6 +12,7 @@
     "prod": "npm run build && npm start",
     "eslint": "eslint src --ext ts",
     "test": "mocha -r ts-node/register tests/**/*.test.ts",
+    "test:watch": "mocha -r ts-node/register tests/**/*.test.ts -w",
     "coverage": "nyc -r lcov -e .ts -x \"*.test.ts\" npm run test",
     "docs": "aglio --theme-variables slate -i docs/api.apib -o docs/index.html",
     "docs:host": "aglio --theme-variables slate -i docs/api.apib -s"
