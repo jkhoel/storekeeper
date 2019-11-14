@@ -1,22 +1,45 @@
 import express from 'express';
-import sql from '../utils/db';
+// import sql from '../utils/db';
 
+// Data-Layers
+import Airports from './data-layers/airports'
+
+// Request-Handlers
+import getAllAirports from './request-handlers/getAllAirports';
+
+// Initialize Handlers
+const getAll = getAllAirports(new Airports)
+
+// Initialize the Router
 const airports = express.Router();
 
+// Add Routes
 airports.get('/', (req, res) => {
-  // Default value if limit is not passed
-  // let limit = 'LIMIT 0, 50';
-  let limit = '';
-  if (req.query.limit) limit = `LIMIT 0, ${req.query.limit}`;
+  getAll(req, (err: any, result: any) => {
+    if (err) {
+      res.status(500)
+      return res.json({ message: err.message })
+    }
 
-  let desc = '';
-  if (req.query.desc !== 'false') desc = `ORDER BY af_icao DESC`;
+    res.status(result.status)
+    return res.json(result.responseJson)
+  })
+})
 
-  const query = `SELECT * from list_airfields ${desc} ${limit}`;
-  sql(query).then((data: { error: any; rows: any; }) => {
-    if (data.error) res.json(data);
-    res.json(data.rows);
-  });
-});
+// airports.get('/', (req, res) => {
+//   // Default value if limit is not passed
+//   // let limit = 'LIMIT 0, 50';
+//   let limit = '';
+//   if (req.query.limit) limit = `LIMIT 0, ${req.query.limit}`;
+
+//   let desc = '';
+//   if (req.query.desc !== 'false') desc = `ORDER BY af_icao DESC`;
+
+//   const query = `SELECT * from list_airfields ${desc} ${limit}`;
+//   sql(query).then((data: { error: any; rows: any; }) => {
+//     if (data.error) res.json(data);
+//     res.json(data.rows);
+//   });
+// });
 
 export default airports;
