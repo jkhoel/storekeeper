@@ -2,7 +2,7 @@ import chai from 'chai';
 import chaiHttp from 'chai-http';
 
 import app from '../src/app';
-import getAllhandler from '../src/handlers/getAll'
+import getAllHandler from '../src/handlers/get'
 
 chai.use(chaiHttp);
 chai.should();
@@ -14,39 +14,37 @@ interface MockSqlQueryResult {
 }
 
 describe('/api/v1/airports:', () => {
-    it('GET /api/v1/airports - Should return status 200 and all airports as an object', function (done) {
-      // Mock a request
-      const req = {}
+  it('GET /api/v1/airports - Should return status 200 and all airports as an object', function (done) {
+    // Mock a request
+    const req = {}
 
-      // Mock a successfull SQL request
-      const result: MockSqlQueryResult = {
-        error: null,
-        rows: [{ airfield_id: 40 }, { airfield_id: 39 }, { airfield_id: 38 }]
-      }
+    // Mock a successfull SQL request
+    const result: MockSqlQueryResult = {
+      error: null,
+      rows: [{ airfield_id: 40 }, { airfield_id: 39 }, { airfield_id: 38 }]
+    }
 
-      // Create a dummy object to simulate the interfaces/Airports class      
-      const Airports = {
-        getAll: function (callback: Function) { callback(result)}
-      }
-      
-      // Create and initialize the handler
-      const handleRequest = getAllhandler(Airports)
+    // Create a dummy object to simulate the interfaces/Airports class      
+    const Airports = {
+      getAll: function (callback: Function) { callback(result) }
+    }
+
+    // Create and initialize the handler
+    const handleRequest = getAllHandler(Airports)
 
 
-      // Call the handler
-      handleRequest(req, function (err: any, result: any) {
-        if (err) return done(err);
+    // Call the handler
+    handleRequest(req, function (err: any, result: any) {
+      if (err) return done(err);
 
-        console.log(result.responseJson)
-
-        // Do assertions \o/
-        result.should.have.status(200);
-        result.should.have.property('responseJson')
-        result.responseJson.should.be.an('object').with.property('rows')
-        result.responseJson.rows.should.be.an('array').with.lengthOf(3)
-        done()
-      })
+      // Do assertions \o/
+      result.should.have.status(200);
+      result.should.have.property('responseJson')
+      result.responseJson.should.be.an('object').with.property('rows')
+      result.responseJson.rows.should.be.an('array').with.lengthOf(3)
+      done()
     })
+  })
 
   // it('GET /api/v1/airports - Should return status 200 and all airports as an object', function (done) {
   //   chai.request(app).get('/api/v1/api/v1/airports').end(function (err, res) {

@@ -1,26 +1,31 @@
 import express from 'express';
 
 // Data Interfaces & Handlers
-import getAllhandler from '../handlers/getAll';
+import getAllHandler, { getSomeHandler } from '../handlers/get';
 import Airports from '../interfaces/Airports'
 
 // Initialize Handlers
-const getAll = getAllhandler(new Airports)
+const getAll = getAllHandler(new Airports)
+const getSome = getSomeHandler
 
 // Initialize the Router
 const airports = express.Router();
 
 // Routes:
 airports.get('/', (req, res) => {
-  getAll(req, (error?: any, result?: any) => {
-    if (error) {
-      res.status(500)
-      return res.json({ message: error.message })
-    }
+  if (req.query.limit) {
 
-    res.status(result.status)
-    return res.json(result.responseJson)
-  })
+  } else {
+    getAll(req, (error?: any, result?: any) => {
+      if (error) {
+        res.status(500)
+        return res.json({ message: error.message })
+      }
+
+      res.status(result.status)
+      return res.json(result.responseJson)
+    })
+  }
 })
 
 /////////////////
