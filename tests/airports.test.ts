@@ -37,9 +37,13 @@ describe('/api/v1/airports:', () => {
       handleRequest(req, function (err: any, result: any) {
         if (err) return done(err);
 
+        console.log(result.responseJson)
+
         // Do assertions \o/
         result.should.have.status(200);
-        // TODO: Do assertion on the type of data returned
+        result.should.have.property('responseJson')
+        result.responseJson.should.be.an('object').with.property('rows')
+        result.responseJson.rows.should.be.an('array').with.lengthOf(3)
         done()
       })
     })
