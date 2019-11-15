@@ -3,11 +3,19 @@ import chaiHttp from 'chai-http';
 
 import app from '../src/app';
 
-import getAll from '../src/handlers/getAll'
+import getAllhandler from '../src/handlers/getAll'
+import Airports from '../src/interfaces/Airports';
+import { Func } from 'mocha';
 
 // Configure Chai
 chai.use(chaiHttp);
 chai.should();
+
+// Interface for mocking interface responses
+interface MockSqlQueryResult {
+  error?: Object,
+  rows?: Object[]
+}
 
 describe('Endpoint: /api/v1/:', function () {
   it('GET   /api/v1/ - Should respond to a basic request to root endpoint', function (done) {
@@ -42,18 +50,22 @@ describe('Endpoint: /api/v1/airports:', () => {
       // Mock a request
       const req = {}
 
-      // Mock some returned data
-      const airportList = [{ airfield_id: 40 }, { airfield_id: 39 }, { airfield_id: 38 }]
-
-      // Create a dummy object that adheres to interfaces/Airport's interface
-      const Airports = {
-        getAll: function (callback: any) { callback(null, airportList) }
+      // Mock a successfull SQL request
+      const result: MockSqlQueryResult = {
+        error: null,
+        rows: [{ airfield_id: 40 }, { airfield_id: 39 }, { airfield_id: 38 }]
       }
 
-      // Create the handler, pass the dummy Airports object
-      const handleRequest = getAll(Airports)
+      // Create a dummy object to simulate the interfaces/Airports class      
+      const Airports = {
+        getAll: function (callback: Function) { callback(result)}
+      }
+      
+      // Create and initialize the handler
+      const handleRequest = getAllhandler(Airports)
 
-      // Call the handler!
+
+      // Call the handler
       handleRequest(req, function (err: any, result: any) {
         if (err) return done(err);
 
