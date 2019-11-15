@@ -1,23 +1,33 @@
 FORMAT: 1A
-
-// https://apiblueprint.org/documentation/tutorial.html
+HOST: http://localhost:5000/
 
 # Storekeeper
 
-Storekeeper is allows dataexchange between a DCS mission and a persistant backend API.
+Storekeeper allows dataexchange between a DCS mission and a persistant backend API.
 
-# Group Public
+# Group / 
+This is the API root endpoint. It accepts GET and POST requests
 
-## Root Endpoint [/api/v1/]
+## GET [/api/v1/]
 
-### Hello World [GET]
+### GET
 Simple endpoint to check that the API is up and available
+    + Response 200 (application/json)
+        { "msg": "Storekeeper API is running!" }
 
-+ Response 200 (application/json)
-    { "msg": "Storekeeper API is running!" }
+## POST [/api/v1/]
 
-### Echo Request [POST]
+### POST
 Mirrors the request posted back
+    + Response 200 (application/json)
+        { "header": { "content-type": "application/x-www-form-urlencoded", "user-agent": ... }}
 
-+ Response 200 (application/json)
-    { "header": { "content-type": "application/x-www-form-urlencoded", "user-agent": ... }}
+# Group /airports
+This endpoint provides a list of all airports in DCS with some associated data
+
+## GET [/api/v1/airports{?limit}]
+
+### GET 
+    + Parameters
+        + limit (number, optional) - The maximum number of results to return
+            + Default: 'all'
