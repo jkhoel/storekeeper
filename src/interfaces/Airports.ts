@@ -1,22 +1,25 @@
 import sql from '../utils/db';
 
+type HandlerCallback = (response: Object) => void
+type SqlQueryResult = { error?: Object, rows?: Object[] }
+
 class Airports {
-  getAll(callback: any) {
-    const query = `SELECT * from list_airfields ORDER BY af_icao DESC`;
-    sql(query).then((data: { error: any; rows: any; }) => {
-      //   if (data.error) res.json(data);
-      //   res.json(data.rows);
-      if (data.error) callback(data)
-      callback(data.rows);
+
+  private makeRequest(query: string, onQueryResult: HandlerCallback) {
+    sql(query).then((response: SqlQueryResult) => {
+      onQueryResult(response);
     });
   }
 
-  getSome(limit: number, callback: any) {
+  getAll(onQueryResult: HandlerCallback) {
+    const query = `SELECT * from list_airfields ORDER BY af_icao DESC`;
+    this.makeRequest(query, onQueryResult)
+  }
+
+  
+  getSome(limit: Number, onQueryResult: HandlerCallback) {
     const query = `SELECT * from list_airfields ORDER BY af_icao DESC LIMIT 0, ${limit}`;
-    sql(query).then((data: { error: any; rows: any; }) => {
-      if (data.error) callback(data)
-      callback(data.rows);
-    });
+    this.makeRequest(query, onQueryResult)
   }
 }
 

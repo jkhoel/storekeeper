@@ -1,8 +1,21 @@
-const getAll = (Model: any) => (req: any, callback: any) => {
-  Model.getAll((err: any, items: any) => {
-    if (err) return callback(err)
+type RouteCallback = (error?: Object, result?: Object) => void
+type QueryResult = { error?: Object, rows?: Object[] }
 
-    callback(null, { status: 200, responseJson: { items } })
+const getAll = (Model: any) => (request: Object, callback: RouteCallback) => {
+  Model.getAll((result: QueryResult) => {
+    const {error, rows } = result;
+
+    if(error) return callback(error)
+    callback(null, { status: 200, responseJson: { rows } })
+  })
+}
+
+export const getSome = (Model: any) => (request: Object, callback:  RouteCallback) => {
+  Model.getSome((result: QueryResult) => {
+    const {error, rows } = result;
+
+    if(error) return callback(error)
+    callback(null, { status: 200, responseJson: { rows } })
   })
 }
 

@@ -14,11 +14,11 @@ const getAll = getAllhandler(new Airports)
 const airports = express.Router();
 
 // Add Routes
-airports.get('/', (req, res) => {
-  getAll(req, (err: any, result: any) => {
-    if (err) {
+airports.get('/', (request, res) => {
+  getAll(request, (error: any, result: any) => {
+    if (error) {
       res.status(500)
-      return res.json({ message: err.message })
+      return res.json({ message: error.message })
     }
 
     res.status(result.status)
