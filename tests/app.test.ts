@@ -3,7 +3,7 @@ import chaiHttp from 'chai-http';
 
 import app from '../src/app';
 
-import handlerGetAll from '../src/routes/request-handlers/getAllAirports'
+import getAll from '../src/handlers/getAll'
 
 // Configure Chai
 chai.use(chaiHttp);
@@ -38,22 +38,20 @@ describe('Endpoint: /api/v1/:', function () {
 
 
 describe('Endpoint: /api/v1/airports:', () => {
-
-  describe('Handler: getAllAirports', function () {
-    it('returns a list of airfields when Airports.getAll is successful', function (done) {
+    it('GET /api/v1/airports - Should return status 200 and all airports as an object', function (done) {
       // Mock a request
       const req = {}
 
       // Mock some returned data
       const airportList = [{ airfield_id: 40 }, { airfield_id: 39 }, { airfield_id: 38 }]
 
-      // Create a dummy object that adheres to data-layer/Airport's interface
+      // Create a dummy object that adheres to interfaces/Airport's interface
       const Airports = {
         getAll: function (callback: any) { callback(null, airportList) }
       }
 
       // Create the handler, pass the dummy Airports object
-      const handleRequest = handlerGetAll(Airports)
+      const handleRequest = getAll(Airports)
 
       // Call the handler!
       handleRequest(req, function (err: any, result: any) {
@@ -64,9 +62,7 @@ describe('Endpoint: /api/v1/airports:', () => {
         // TODO: Do assertion on the type of data returned
         done()
       })
-
     })
-  })
 
   // it('GET /api/v1/airports - Should return status 200 and all airports as an object', function (done) {
   //   chai.request(app).get('/api/v1/api/v1/airports').end(function (err, res) {
