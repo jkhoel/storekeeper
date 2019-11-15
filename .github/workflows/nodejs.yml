@@ -21,12 +21,18 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - name: npm install, build, and test
+      - name: Run npm install
         run: |
           { echo 'PORT=5000'; echo 'ROOT_URL=/api/v1';} >> .env
           npm i
           npm ci
+          # npm test
           # npm run build --if-present
+      - name: Run tests
+        run: |
           npm test
+      - name: Run build-script
+        run: |
+          npm run build --if-present
         env:
           CI: true
