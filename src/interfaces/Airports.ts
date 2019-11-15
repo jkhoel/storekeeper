@@ -1,4 +1,4 @@
-import sql from '../../utils/db';
+import sql from '../utils/db';
 
 class Airports {
   getAll(callback: any) {

@@ -1,14 +1,14 @@
 import express from 'express';
 // import sql from '../utils/db';
 
-// Data-Layers
-import Airports from './data-layers/airports'
+// Data Interfaces
+import Airports from '../interfaces/Airports'
 
-// Request-Handlers
-import getAllAirports from './request-handlers/getAllAirports';
+// Handlers
+import getAllhandler from '../handlers/getAll';
 
 // Initialize Handlers
-const getAll = getAllAirports(new Airports)
+const getAll = getAllhandler(new Airports)
 
 // Initialize the Router
 const airports = express.Router();
