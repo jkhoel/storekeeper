@@ -1,11 +1,8 @@
 import express from 'express';
-// import sql from '../utils/db';
 
-// Data Interfaces
-import Airports from '../interfaces/Airports'
-
-// Handlers
+// Data Interfaces & Handlers
 import getAllhandler from '../handlers/getAll';
+import Airports from '../interfaces/Airports'
 
 // Initialize Handlers
 const getAll = getAllhandler(new Airports)
@@ -13,9 +10,9 @@ const getAll = getAllhandler(new Airports)
 // Initialize the Router
 const airports = express.Router();
 
-// Add Routes
-airports.get('/', (request, res) => {
-  getAll(request, (error: any, result: any) => {
+// Routes:
+airports.get('/', (req, res) => {
+  getAll(req, (error?: any, result?: any) => {
     if (error) {
       res.status(500)
       return res.json({ message: error.message })
@@ -25,6 +22,8 @@ airports.get('/', (request, res) => {
     return res.json(result.responseJson)
   })
 })
+
+/////////////////
 
 // airports.get('/', (req, res) => {
 //   // Default value if limit is not passed
