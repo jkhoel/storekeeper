@@ -1,16 +1,8 @@
-import sql from '../utils/db';
+import Interface from './Interface'
 
 type HandlerCallback = (response: Object) => void
-type SqlQueryResult = { error?: Object, rows?: Object[] }
 
-class Airports {
-
-  private makeRequest(query: string, onQueryResult: HandlerCallback) {
-    sql(query).then((response: SqlQueryResult) => {
-      onQueryResult(response);
-    });
-  }
-
+class Airports extends Interface {
   getAll(onQueryResult: HandlerCallback) {
     const query = `SELECT * from list_airfields ORDER BY af_icao DESC`;
     this.makeRequest(query, onQueryResult)
