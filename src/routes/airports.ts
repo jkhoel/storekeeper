@@ -1,49 +1,26 @@
 import express from 'express';
+import getHandler from '../handlers/handlers';
 
-// Data Interfaces & Handlers
-import getAllHandler, { getSomeHandler } from '../handlers/get';
+// Data Interfaces 
 import Airports from '../interfaces/Airports'
 
 // Initialize Handlers
-const getAll = getAllHandler(new Airports)
-const getSome = getSomeHandler
+const getAirports = getHandler(new Airports)
 
 // Initialize the Router
 const airports = express.Router();
 
 // Routes:
 airports.get('/', (req, res) => {
-  if (req.query.limit) {
+  getAirports(req, (error?: { message: Object }, result?: { status: number, responseJson: Object }) => {
+    if (error) {
+      res.status(500)
+      return res.json({ message: error.message })
+    }
 
-  } else {
-    getAll(req, (error?: any, result?: any) => {
-      if (error) {
-        res.status(500)
-        return res.json({ message: error.message })
-      }
-
-      res.status(result.status)
-      return res.json(result.responseJson)
-    })
-  }
+    res.status(result.status)
+    return res.json(result.responseJson)
+  })
 })
-
-/////////////////
-
-// airports.get('/', (req, res) => {
-//   // Default value if limit is not passed
-//   // let limit = 'LIMIT 0, 50';
-//   let limit = '';
-//   if (req.query.limit) limit = `LIMIT 0, ${req.query.limit}`;
-
-//   let desc = '';
-//   if (req.query.desc !== 'false') desc = `ORDER BY af_icao DESC`;
-
-//   const query = `SELECT * from list_airfields ${desc} ${limit}`;
-//   sql(query).then((data: { error: any; rows: any; }) => {
-//     if (data.error) res.json(data);
-//     res.json(data.rows);
-//   });
-// });
 
 export default airports;
