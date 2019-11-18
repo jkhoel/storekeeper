@@ -3,10 +3,8 @@ type QueryResult = { error?: Object, rows?: Object[] }
 
 const getHandler = (Model: any) => (request: Object, callback: RouteCallback) => {
   Model.onGet(request, (result: QueryResult) => {
-    const { error, rows } = result;
-
-    if (error) return callback(error)
-    callback(null, { status: 200, responseJson: { rows } })
+    if (result.error) return callback(result.error)
+    callback(null, { status: 200, responseJson: { rows: result.rows } })
   })
 }
 
