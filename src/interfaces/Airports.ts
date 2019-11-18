@@ -1,9 +1,11 @@
-import SqlRequester from './SqlRequester'
+import SqlDataObtainer, {SqlRequester} from './ISqlDataObtainer'
 
 type HandlerCallback = (response: Object) => void
 type HTMLRequest = { query?: { limit?: number } }
 
-class Airports extends SqlRequester {
+class Airports implements SqlDataObtainer {
+  private makeRequest = new SqlRequester().makeRequest
+
   onGet(request: HTMLRequest, onQueryResult: HandlerCallback) {
     // Default: Get all records
     let query = `SELECT * from list_airfields ORDER BY af_icao DESC`;
