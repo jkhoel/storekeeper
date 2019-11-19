@@ -1,4 +1,4 @@
-import SqlDataObtainer, {SqlRequester} from './ISqlDataObtainer'
+import SqlDataObtainer, {SqlRequester} from './obtainers/ISqlDataObtainer'
 
 type HandlerCallback = (response: Object) => void
 type HTMLRequest = { query?: { limit?: number } }

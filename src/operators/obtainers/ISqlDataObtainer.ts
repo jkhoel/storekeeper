@@ -1,4 +1,4 @@
-import sql from '../utils/db';
+import sql from '../../utils/db';
 
 type HandlerCallback = (response: Object) => void
 type SqlQueryResult = { error?: Object, rows?: Object[] }

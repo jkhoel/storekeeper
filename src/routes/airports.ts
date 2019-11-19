@@ -2,7 +2,7 @@ import express from 'express';
 import getHandler from '../handlers/handlers';
 
 // Data Interfaces 
-import Airports from '../interfaces/Airports'
+import Airports from '../operators/Airports'
 
 // Initialize Handlers
 const getAirports = getHandler(new Airports)
