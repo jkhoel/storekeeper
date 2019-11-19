@@ -1,9 +1,9 @@
-import SqlDataObtainer, {SqlRequester} from './obtainers/ISqlDataObtainer'
+import ISqlDataProvider, {SqlRequester} from './providers/ISqlDataProvider'
 
 type HandlerCallback = (response: Object) => void
 type HTMLRequest = { query?: { limit?: number } }
 
-class Airports implements SqlDataObtainer {
+class Airports implements ISqlDataProvider {
   private makeRequest = new SqlRequester().makeRequest
 
   onGet(request: HTMLRequest, onQueryResult: HandlerCallback) {

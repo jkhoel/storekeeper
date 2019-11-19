@@ -11,8 +11,8 @@ export class SqlRequester {
   }
 }
 
-interface ISqlDataObtainer {
+interface ISqlDataProvider {
   onGet(request: Object, callback: HandlerCallback): void
 }
 
-export default ISqlDataObtainer
+export default ISqlDataProvider
