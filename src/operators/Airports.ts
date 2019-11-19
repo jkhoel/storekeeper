@@ -1,23 +1,27 @@
 import ISqlDataProvider, {SqlRequester} from './providers/ISqlDataProvider'
 
 type HandlerCallback = (response: Object) => void
-type HTMLRequest = { query?: { limit?: number } }
+type HTMLRequest = { query: { limit: number, offset: number } }
 
 class Airports implements ISqlDataProvider {
   private makeRequest = new SqlRequester().makeRequest
 
   onGet(request: HTMLRequest, onQueryResult: HandlerCallback) {
     // Default: Get all records
-    let query = `SELECT * from airfields ORDER BY icao DESC`;
+    let sqlQuery = `SELECT * from airfields ORDER BY icao ASC`;
 
     // Modify the query if we received any query parameters from the HTML request
     if (request.query) {
-      // Get amount of records equal to the supplied limit
-      // TODO: This should have a property for DESC or ASC sorting
-      if (request.query.limit) query = query = `SELECT * from airfields ORDER BY icao DESC LIMIT 0, ${request.query.limit}`;
+      // If 'query.limit' or 'query.offset is passed, get amount of records equal to 'limit', offset by 'offset' records.
+      if (request.query.limit || request.query.offset) {
+        let offset = request.query.offset || 0
+        let limit = request.query.limit || 0
+
+        sqlQuery = `SELECT * from airfields ORDER BY icao ASC LIMIT ${offset}, ${limit}`;
+      } 
     }
 
-    this.makeRequest(query, onQueryResult)
+    this.makeRequest(sqlQuery, onQueryResult)
   }
 }
 
